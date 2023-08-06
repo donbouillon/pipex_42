@@ -3,32 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/08 12:17:37 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/12 15:28:51 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/13 18:58:02 by slistle           #+#    #+#             */
+/*   Updated: 2023/08/06 17:29:47 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* calloc() alloue la mémoire necessaire pour un tableau de nmemb éléments de
-taille size octets, et renvoie un pointeur vers la mémoire allouée. Cette zone 
-est remplie avec des zéros. Si nmemb ou size vaut 0, calloc() renvoie soit 
-NULL, soit un pointeur unique qui pourra être passé ultérieurement à free() 
-avec succès. */
 
 #include "libft.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	*ptr;
+	char	*tmp_arr;
+	size_t	i;
+	int		mult;
 
+	i = 0;
+	if (size < 0)
+		return(NULL);
+	mult = nmemb * size;
+	tmp_arr = (char *)malloc((nmemb) * size);
+	if (!tmp_arr)
+		return (NULL);
 	if (nmemb == 0 || size == 0)
+		return (tmp_arr);
+	if (mult / size != nmemb)
+		return (NULL);
+	while (i < nmemb * size)
 	{
-		nmemb = 1;
-		size = 1;
+		tmp_arr[i] = 0;
+		i++;
 	}
-	ptr = malloc (nmemb * size);
-	if (ptr)
-		ft_bzero(ptr, nmemb * size);
-	return (ptr);
+	return (tmp_arr);
 }

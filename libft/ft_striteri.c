@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 17:07:17 by slistle           #+#    #+#             */
-/*   Updated: 2022/12/07 21:54:06 by slistle          ###   ########.fr       */
+/*   Created: 2022/12/04 22:00:50 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/04 22:14:08 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int c)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	if (c >= 65 && c <= 90)
+	unsigned int	i;
+
+	if (!s || !(*s) || !f)
+		return ;
+	i = 0;
+	while (s[i] != '\0')
 	{
-		c = c + 32;
+		f(i, &s[i]);
+		i++;
 	}
-	return (c);
 }

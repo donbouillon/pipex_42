@@ -3,33 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 11:38:19 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/11 14:49:22 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/12 20:23:09 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:53:30 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* La fonction strrchr() renvoie un pointeur sur la dernière occurrence du 
-caractère c dans la chaîne s. */
-/* La fonction strrchr() renvoie un pointeur sur le caractère correspondant, 
-ou NULL si le caractère n'a pas été trouvé. */
 
 #include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*res_s;
+	char	*tmp_s;
 
 	i = 0;
-	while (s[i])
-		i++;
-	if (c == '\0')
-		return ((char *)s + i);
-	while (i--)
+	j = -1;
+	tmp_s = (char *)s;
+	res_s = tmp_s;
+	while (tmp_s[i] != '\0')
 	{
-		if (s[i] == c)
-			return ((char *)(s + i));
+		if ((unsigned char)tmp_s[i] == (unsigned char)c)
+		{
+			j = i;
+		}
+		i++;
 	}
-	return (0);
+	if (j == -1)
+	{
+		res_s = NULL;
+		j = tmp_s[i];
+	}
+	if (c == '\0')
+		return (&tmp_s[i]);
+	return (&res_s[j]);
 }

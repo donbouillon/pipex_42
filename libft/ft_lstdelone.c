@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 11:52:19 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/20 13:45:11 by gcollet          ###   ########.fr       */
+/*   Created: 2022/12/02 23:35:53 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:51:36 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Libère la mémoire de l’élément passé en argument en utilisant la fonction 
-del puis avec free(3). La mémoire de next ne doit pas être free. */
-
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	if (lst == NULL)
+	if (!del)
 		return ;
-	if (lst->content)
+	if (lst)
 	{
 		del(lst->content);
 		free(lst);
-	}
+	}	
 }

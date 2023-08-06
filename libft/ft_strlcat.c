@@ -3,39 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 14:49:15 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/17 10:15:29 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/12 16:14:24 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:53:11 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* The strlcat() function appends the NUL-terminated string src to the end of 
-dst. It will append at most size - strlen(dst) - 1 bytes, NUL-terminating the 
-result. */
-/* The strlcat() functions return the total length of the string they tried 
-to create that means the initial length of dst plus the length of src. */
 
 #include "libft.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	n;
-	size_t	m;
-	size_t	p;
+	size_t				l_dst;
+	size_t				l_src;
+	size_t				i;
 
-	m = 0;
-	n = ft_strlen(dst);
-	p = ft_strlen(src);
-	if (size == 0)
-		return (p);
-	while ((src[m] != '\0') && ((n + m) < (size - 1)))
+	if ((!dst || !src) && size == 0)
+		return (0);
+	l_dst = ft_strlen(dst);
+	l_src = ft_strlen(src);
+	i = 0;
+	if (size <= l_dst || size == 0)
+		return (l_src + size);
+	while (src[i] != '\0' && i + l_dst < size - 1)
 	{
-		dst[n + m] = src[m];
-		m++;
+		dst[l_dst + i] = src[i];
+		i++;
 	}
-	dst[n + m] = '\0';
-	if (size > n)
-		return (n + p);
-	return (size + p);
+	dst[l_dst + i] = '\0';
+	return (l_dst + l_src);
 }

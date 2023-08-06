@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 11:44:55 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/13 16:00:14 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/30 01:20:18 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:52:26 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* Écrit La chaine de caractères ’s’ sur le file descriptor donné, suivie 
-d’un retour à la ligne. */
 
 #include "libft.h"
 
 void	ft_putendl_fd(char *s, int fd)
 {
+	size_t		i;
+	char		n;
+
+	i = 0;
+	n = '\n';
 	if (!s)
 		return ;
-	while (*s)
+	while (s[i] != '\0')
 	{
-		ft_putchar_fd(*s, fd);
-		s++;
+		write(fd, &s[i], 1);
+		i++;
 	}
-	ft_putchar_fd('\n', fd);
+	write(fd, &n, 1);
 }

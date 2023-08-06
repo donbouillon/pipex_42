@@ -1,49 +1,39 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gleb <gleb@student.42.fr>                  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/11 12:58:26 by gcollet           #+#    #+#              #
-#    Updated: 2023/07/29 12:48:11 by gleb             ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME := libft.a
+CC := cc
+CFLAGS := -Wall -Werror -Wextra
+SRC_FILES := ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
+ 	ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c ft_toupper.c\
+ 	ft_tolower.c ft_strchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c\
+	ft_calloc.c ft_strdup.c ft_strrchr.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c\
+	ft_itoa.c ft_strmapi.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
+	
 
-NAME 	= libft.a
-SRCS 	= ft_isalnum.c ft_isdigit.c ft_memccpy.c ft_memcpy.c ft_putchar_fd.c\
-		ft_putstr_fd.c ft_strdup.c ft_strlcpy.c ft_strncmp.c ft_strtrim.c\
-		ft_toupper.c ft_bzero.c ft_isalpha.c ft_isprint.c ft_memchr.c\
-		ft_memmove.c ft_putendl_fd.c ft_split.c ft_strjoin.c ft_strlen.c\
-		ft_strnstr.c ft_substr.c ft_atoi.c ft_calloc.c ft_isascii.c ft_itoa.c\
-		ft_memcmp.c ft_memset.c ft_putnbr_fd.c ft_strchr.c ft_strlcat.c\
-		ft_strmapi.c ft_strrchr.c ft_tolower.c
-OBJS 	= ${SRCS:.c=.o}
-SRCS_B	= ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
-		ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
-OBJS_B	= ${SRCS_B:.c=.o}
-HEADER	= ./
+BONUS_SRC_FILES := ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c\
+	ft_lstclear.c ft_lstiter.c ft_striteri.c
 
-CC 		= gcc
-CFLAGS 	= -Wall -Wextra -Werror
+BONUS_OBJ_FILES = $(BONUS_SRC_FILES:.c=.o)
+	
+OBJ_FILES = $(SRC_FILES:.c=.o)
+
+all : $(NAME) bonus
+
+$(NAME) : $(OBJ_FILES)
+	ar rcs $(NAME) $(OBJ_FILES)
+
+bonus : $(BONUS_OBJ_FILES)
+	ar rcs $(NAME) $(BONUS_OBJ_FILES)
+
+so:
+	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRC_FILES) $(BONUS_SRC_FILES)
+	gcc -nostartfiles -shared -o libft.so $(OBJ_FILES) $(BONUS_OBJ_FILES) 
 
 .c.o:
-	@${CC} ${CFLAGS} -I ${HEADER} -c $< -o $(<:.c=.o)
-
-$(NAME):	${OBJS}
-	@ar rc ${NAME} ${OBJS}
-
-all: 		${NAME}
-
-bonus:		${OBJS} ${OBJS_B}
-	@ar rc ${NAME} ${OBJS} ${OBJS_B}
+	${CC} ${CFLAGS} -g -c $< -o ${<:.c=.o}
 
 clean:
-	@rm -f ${OBJS} ${OBJS_B}
+	rm -rf $(OBJ_FILES) $(BONUS_OBJ_FILES) $(NAME) libft.so
 
-fclean: 	clean
-	@rm -f $(NAME)
+fclean: clean
+	rm -rf all
 
-re:			fclean all
-
-.PHONY: all clean fclean re bonus
+re: fclean all

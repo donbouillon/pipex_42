@@ -3,26 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 11:10:13 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/20 11:48:50 by gcollet          ###   ########.fr       */
+/*   Created: 2022/12/02 21:01:12 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/03 16:37:13 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Ajoute l’élément new à la fin de la liste. */
-
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*temp;
+	t_list	*tmp;
 
-	if (*alst == NULL)
-		*alst = new;
+	if (lst == NULL || new == NULL)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+	}
 	else
 	{
-		temp = ft_lstlast(*(alst));
-		temp->next = new;
+		tmp = ft_lstlast(*lst);
+		tmp->next = new;
 	}
 }
+
+// int main()
+// {
+// 	t_list *l = ft_lstnew(strdup("nyacat"));
+// 	t_list *n = ft_lstnew(strdup("OK"));
+// 	ft_lstadd_back(&l, n);
+// 	return 0;
+// }

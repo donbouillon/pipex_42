@@ -3,23 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/07 10:04:18 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/07 10:25:01 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/09 18:52:09 by slistle           #+#    #+#             */
+/*   Updated: 2022/11/09 21:58:00 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Vérifie si c est un unsigned char sur 7 bits, entrant dans le jeu de 
-caractères ASCII. */
-/* Les valeurs renvoyées sont non nulles si le caractère c entre dans la 
-catégorie testée, et zéro sinon */
-
-#include "libft.h"
-
 int	ft_isascii(int c)
 {
+	int	res;
+
+	res = 0;
 	if (c >= 0 && c <= 127)
-		return (1);
-	return (0);
+	{
+		res = 1;
+	}
+	return (res);
 }

@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 10:10:24 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/20 10:50:27 by gcollet          ###   ########.fr       */
+/*   Created: 2022/12/02 20:05:35 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/03 16:39:44 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* Compte le nombre d’éléments de la liste. */
 
 #include "libft.h"
 
@@ -19,7 +17,7 @@ int	ft_lstsize(t_list *lst)
 	int	i;
 
 	i = 0;
-	while (lst)
+	while (lst != NULL)
 	{
 		lst = lst->next;
 		i++;

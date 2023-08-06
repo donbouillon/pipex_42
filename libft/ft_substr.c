@@ -3,42 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 10:51:58 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/13 16:02:24 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/19 23:08:36 by slistle           #+#    #+#             */
+/*   Updated: 2023/08/06 17:36:49 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* Alloue (avec malloc()) et retourne une chaine de caractères issue de la 
-chaine ’s’. Cette nouvelle chaine commence à l’index ’start’ et a pour taille 
-maximale ’len’ */
-/* La nouvelle chaine de caractere. NULL si l’allocation échoue. */
 
 #include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*tab;
 	size_t	i;
-	size_t	j;
+	char	*str_res;
 
 	i = 0;
-	j = 0;
-	if (!s)
+	str_res = NULL;
+	if (!s || len == 0 || start >= ft_strlen(s))
+		return (ft_strdup(""));
+	if (len == start || len < ft_strlen(s))
+		str_res = (char *)malloc(len + 1);
+	else if (len <= ft_strlen(s))
+		str_res = (char *)malloc(len - start + 1);
+	else if (len > ft_strlen(s))
+		str_res = (char *)malloc(ft_strlen(s) + 1);
+	if (!str_res)
 		return (NULL);
-	tab = (char *)malloc(sizeof(*s) * (len + 1));
-	if (!tab)
-		return (NULL);
-	while (s[i])
+	while (i < len && s[i] != '\0')
 	{
-		if (i >= start && j < len)
-		{
-			tab[j] = s[i];
-			j++;
-		}
+		str_res[i] = s[start + i];
 		i++;
 	}
-	tab[j] = '\0';
-	return (tab);
+	str_res[i] = '\0';
+	return (str_res);
 }
+
+// len < strlen(s) - start;
+// s != '\0';
+// start < len;
+
+// int main()
+// {
+// 	printf("%s",ft_substr("test", 1, 2));
+// 	return (0);
+// }

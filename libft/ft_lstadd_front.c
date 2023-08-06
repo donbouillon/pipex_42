@@ -3,19 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 09:29:13 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/20 10:49:20 by gcollet          ###   ########.fr       */
+/*   Created: 2022/12/02 14:59:10 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/03 16:37:46 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Ajoute l’élément ’new’ au début de la liste. */
-
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **alst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	new->next = *alst;
-	*alst = new;
+	if (lst == NULL)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+	}
+	else
+	{
+		new->next = *lst;
+		*lst = new;
+	}
 }

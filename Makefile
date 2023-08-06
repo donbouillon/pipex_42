@@ -18,5 +18,6 @@ clean:
 
 fclean: clean
 	rm -rf all
+	make fclean -C ./libft
 
 re: fclean all

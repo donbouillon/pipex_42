@@ -3,33 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gleb <gleb@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:26:24 by slistle           #+#    #+#             */
-/*   Updated: 2023/07/23 17:45:11 by gleb             ###   ########.fr       */
+/*   Updated: 2023/08/06 16:43:41 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
+# include "../libft/libft.h"
 
 int	ft_putstr(char *s)
 {
 	if (!s)
 		return (write(1, "(null)", 6));
 	return (write(1, s, ft_strlen(s)));
-}
-
-size_t	ft_strlen(char *str)
-{
-	size_t	c;
-
-	c = 0;
-	if (!str)
-		return (0);
-	while (str[c] != '\0')
-		c++;
-	return (c);
 }
 
 int	ft_putaddr(long long n)

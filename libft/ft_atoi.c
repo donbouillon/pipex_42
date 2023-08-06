@@ -3,42 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/08 11:53:08 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/12 17:33:21 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/13 18:39:57 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:49:15 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* La fonction atoi() convertit le début de la chaîne pointée par nptr en 
-entier de type int . */
-/* VALEUR RENVOYÉE : Le résultat de la conversion.   */
-
-#include "libft.h"
-
 int	ft_atoi(const char *nptr)
 {
-	long	num;
-	int		sign;
-	int		i;
+	int	i;
+	int	result;
+	int	negative;
 
 	i = 0;
-	sign = 1;
-	num = 0;
-	while ((nptr[i] >= '\t' && nptr[i] <= '\r') || nptr[i] == ' ')
-		nptr++;
-	if (nptr[i] == '-')
-		sign = sign * -1;
-	if (nptr[i] == '+' || nptr[i] == '-')
-		nptr++;
-	while (nptr[i] >= '0' && nptr[i] <= '9')
+	result = 0;
+	negative = 0;
+	while (nptr[i] >= 1 && nptr[i] <= 32 && nptr[i] != 27)
+		i++;
+	if (nptr[i] == '-' && (nptr[i + 1] >= '0' && nptr[i + 1] <= '9'))
 	{
-		num = (num * 10) + nptr[i] - '0';
-		nptr++;
-		if (num * sign > 2147483647)
-			return (-1);
-		if (num * sign < -2147483648)
-			return (0);
+		negative = 1;
+		i++;
 	}
-	return (num * sign);
+	if (nptr[i] == '+' && (nptr[i + 1] >= '0' && nptr[i + 1] <= '9'))
+		i++;
+	while (nptr[i] != '\0' && nptr[i] >= '0' && nptr[i] <= '9')
+	{
+		result = result * 10 + nptr[i] - 48;
+		i++;
+	}
+	if (negative == 1)
+		result = result * -1;
+	return (result);
 }

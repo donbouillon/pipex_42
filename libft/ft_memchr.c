@@ -3,32 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/06 11:23:30 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/11 13:18:41 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/12 23:07:49 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:51:54 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* La fonction memchr() examine les n premiers octets de la zone mémoire 
-pointée par s à la recherche du caractère c. Le premier octet correspondant à c 
-(interprété comme un unsigned char) arrête l'opération. */
-/* La fonction memchr() renvoie un pointeur sur l'octet correspondant, ou NULL 
-si le caractère n'est pas présent dans la zone de mémoire concernée.   */
 
 #include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	size_t			i;
-	unsigned char	*str_s;
+	unsigned char	*tmp_s;
 
-	str_s = (unsigned char *)s;
 	i = 0;
+	tmp_s = (unsigned char *)s;
 	while (i < n)
 	{
-		if (str_s[i] == (unsigned char)c)
-			return (str_s + i);
+		if ((unsigned char)tmp_s[i] == (unsigned char)c)
+		{
+			return ((void *)(&tmp_s[i]));
+		}
 		i++;
 	}
 	return (NULL);

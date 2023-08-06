@@ -3,93 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 17:26:08 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/13 15:57:51 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/27 21:27:04 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:50:41 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Alloue (avec malloc) et retourne une chaine de caractères représentant 
-l’integer reçu en argument .Les nombres négatifs doivent être gérés. */
-/* La chaine de caractères représentant l’integer. NULL si l’allocation 
-échoue. */
-
 #include "libft.h"
 
-static	char	*ft_swap(char *tab, int size)
+static int	ft_is_minus(int *n, int *minus)
 {
-	int		temp;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = size - 1;
-	if (tab[i] == '-')
-		i++;
-	while (i < j)
+	if (*n < 0)
 	{
-		temp = tab[i];
-		tab[i] = tab[j];
-		tab[j] = temp;
-		i++;
-		j--;
+		*n = *n * -1;
+		*minus = 1;
 	}
-	return (tab);
+	else
+		*minus = 0;
+	return (*n);
 }
 
-static	char	*ft_is_zero(char *tab)
+static int	ft_num_len(int n, int *ten, int minus)
 {
 	int	i;
 
-	i = 0;
-	tab[i++] = '0';
-	tab[i] = '\0';
-	return (tab);
+	i = 1;
+	*ten = 1;
+	while (n / 10 >= 1)
+	{
+		n = n / 10;
+		*ten = *ten * 10;
+		i++;
+	}
+	if (minus == 1 && n < 10)
+		i++;
+	if (n == 0)
+		i = 1;
+	return (i);
 }
 
-static	int	ft_len(int c)
+static char	*ft_memory(int i)
 {
-	int	len;
+	char	*res_str;
 
-	len = 1;
-	if (c >= 0)
-		c *= -1;
-	else
-		len++;
-	while (c <= -10)
-	{
-		c /= 10;
-		len++;
-	}
-	return (len);
+		res_str = (char *)malloc(i + 1);
+	if (!res_str)
+		return (NULL);
+	return (res_str);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*tab;
+	int		n_max;
 	int		i;
-	long	l_n;
-	int		len;
+	int		minus;
+	int		ten;
+	char	*res_str;
 
-	i = 0;
-	len = ft_len(n);
-	l_n = n;
-	tab = (char *)malloc(sizeof(char) * (len + 1));
-	if (!tab)
-		return (0);
-	if (l_n == 0)
-		return (ft_is_zero(tab));
-	if (l_n < 0)
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	n_max = ft_is_minus(&n, &minus);
+	i = ft_num_len(n, &ten, minus);
+	res_str = ft_memory(i);
+	if (!res_str)
+		return (NULL);
+	if (minus == 1)
+		res_str[0] = '-';
+	while (minus < i)
 	{
-		l_n = -l_n;
-		tab[i++] = '-';
+		n = n_max / ten;
+		n_max = n_max % ten;
+		ten = ten / 10;
+		res_str[minus] = n + 48;
+		minus++;
 	}
-	while (l_n != 0)
-	{
-		tab[i++] = (l_n % 10) + '0';
-		l_n /= 10;
-	}
-	tab [i] = '\0';
-	return (ft_swap (tab, ft_strlen(tab)));
+	res_str[minus] = '\0';
+	return (res_str);
 }
+
+// int main()
+// {
+// 	printf("[%s]", ft_itoa(-5859));
+// 	// ft_itoa(-543);
+// 	return (0);
+// }

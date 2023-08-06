@@ -3,32 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/10 12:46:47 by gcollet           #+#    #+#             */
-/*   Updated: 2021/05/13 13:30:05 by gcollet          ###   ########.fr       */
+/*   Created: 2022/11/25 19:12:39 by slistle           #+#    #+#             */
+/*   Updated: 2022/12/07 21:53:34 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/* Alloue (avec malloc) et retourne une copie de la chaine ’s1’, sans les 
-caractères spécifiés dans ’set’ au début et à la fin de la chaine de 
-caractères. */
-/* La chaine de caractères trimmée. NULL si l’allocation échoue. */
 
 #include "libft.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	size_t		len;
-	char		*tab;
+	int		start;
+	int		len;
+	char	*res_str;
 
 	if (!s1 || !set)
-		return (NULL);
-	while (*s1 && ft_strchr(set, *s1))
-		s1++;
+		return (ft_strdup(""));
+	start = 0;
 	len = ft_strlen(s1);
-	while (len && ft_strchr(set, s1[len]))
+	while (ft_strchr(set, s1[start]) && s1[start] != '\0')
+	{
+		start++;
+	}
+	while (ft_strchr(set, s1[len]) && len > start)
+	{
 		len--;
-	tab = ft_substr((char *)s1, 0, len + 1);
-	return (tab);
+	}
+	len = len - start + 1;
+	res_str = ft_substr((char *)s1, start, len);
+	return (res_str);
 }
+
+// int main()
+// {
+// 	printf("%s\n",ft_strtrim("121212Th1s121212", "12"));
+// 	return (0);
+// }
