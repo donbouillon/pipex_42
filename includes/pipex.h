@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:18:49 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/09 23:32:07 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:18:14 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	close_and_wait(t_pipex_var *s);
 void	second_process(char **argv, char **envp, t_pipex_var *s);
 void	first_process(char **argv, char **envp, t_pipex_var *s);
 void	initialization(t_pipex_var *s);
-void	no_path(char *msg, t_pipex_var *s);
-
+void	no_path(char *msg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:18:08 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/09 23:35:05 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/10 15:17:17 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ void	ft_exit_error(char *msg)
 	exit(1);
 }
 
-void	no_path(char *msg, t_pipex_var *s)
+void	no_path(char *msg)
 {
-	ft_printf("%s\n", msg);
-	dup2(s->infile, STDOUT);
-	dup2(s->fd[1], STDIN);
+	perror(msg);
 	exit(1);
 }
 
@@ -35,7 +33,7 @@ char	*path_finder(char *cmd, char **envp, t_pipex_var *s)
 	while (envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	if (envp[i] == NULL)
-		no_path("ty pidor", s);
+		no_path("ty pidor");
 	s->dir_paths = ft_split(envp[i] + 5, ':');
 	i = 0;
 	while (s->dir_paths[i])
@@ -73,12 +71,6 @@ char	**remove_quotes(char *argv)
 	return (ret);
 }
 
-void	check_line(char *argv)
-{
-	if (ft_strlen(argv) < 2)
-		ft_exit_error("no commands\n");
-}
-
 void	execute(char *argv, char **envp, t_pipex_var *s)
 {
 	int	i;
@@ -95,7 +87,8 @@ void	execute(char *argv, char **envp, t_pipex_var *s)
 		while (s->cmd[i])
 			free(s->cmd[i++]);
 		free(s->cmd);
-		ft_exit_error("Error\n$PATH :(");
+		no_path("Error\ncommand not found");
+		exit(1);
 	}
 	if (execve(s->path, s->cmd, envp) == -1)
 		ft_exit_error("Error\nexecve");
