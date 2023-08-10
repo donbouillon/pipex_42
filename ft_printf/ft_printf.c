@@ -6,13 +6,13 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/12 15:26:24 by slistle           #+#    #+#             */
-/*   Updated: 2023/08/06 16:43:41 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/10 20:14:43 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_printf.h"
-# include "../libft/libft.h"
+#include "../libft/libft.h"
 
 int	ft_putstr(char *s)
 {

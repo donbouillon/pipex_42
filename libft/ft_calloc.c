@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 18:58:02 by slistle           #+#    #+#             */
-/*   Updated: 2023/08/06 17:29:47 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/10 20:14:57 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_calloc(size_t nmemb, size_t size)
 
 	i = 0;
 	if (size < 0)
-		return(NULL);
+		return (NULL);
 	mult = nmemb * size;
 	tmp_arr = (char *)malloc((nmemb) * size);
 	if (!tmp_arr)

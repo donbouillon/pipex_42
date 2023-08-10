@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 15:49:54 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/10 14:46:07 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/10 20:07:32 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	close_and_wait(t_pipex_var *s)
 {
 	close(s->outfile);
 	close(s->fd[0]);
+	close(pipe(s->fd));
 	waitpid(s->pid1, NULL, 0);
 	waitpid(s->pid2, NULL, 0);
 }
