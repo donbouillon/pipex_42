@@ -6,24 +6,12 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:18:08 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/12 18:38:42 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 19:57:45 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/pipex.h"
 #include "string.h"
-
-void	ft_exit_error(char *msg)
-{
-	ft_printf("%s\n", msg);
-	exit(1);
-}
-
-void	no_path(char *msg)
-{
-	perror(msg);
-	exit(1);
-}
 
 char	*path_finder(char *cmd, char **envp, t_pipex_var *s)
 {
@@ -73,27 +61,14 @@ char	**remove_quotes(char *argv)
 
 char	*direct_path(char *cmd, t_pipex_var *s)
 {
-
 	s->path = ft_strdup(cmd);
-		if (access(s->path, X_OK) == 0)
-			return (s->path);
-		free(s->path);
+	if (access(s->path, X_OK) == 0)
+		return (s->path);
+	free(s->path);
 	return (NULL);
 }
 
-void	ft_error_execve(char *msg, t_pipex_var *s)
-{
-	int	i;
-
-	i = 0;
-	ft_printf("%s\n", msg);
-	while (s->cmd[i])
-			free(s->cmd[i++]);
-		free(s->cmd);
-	free(s->path);
-}
-
-void	execute(char *argv, char **envp, t_pipex_var *s)
+void	if_in_execute(char *argv, t_pipex_var *s)
 {
 	int	i;
 
@@ -105,16 +80,23 @@ void	execute(char *argv, char **envp, t_pipex_var *s)
 		s->cmd = ft_split(argv, ' ');
 		if (!s->cmd)
 		{
-			write(2, "Error\nallocation failed\n", ft_strlen("Error\nallocation failed\n"));
+			write(2, s->split_fail, ft_strlen(s->split_fail));
 			exit(1);
 		}
 		else if (!*(s->cmd))
 		{
 			free(s->cmd);
-			write(2, "Error\ncommand not found\n", ft_strlen("Error\ncommand not found\n"));
+			write(2, s->no_command, ft_strlen(s->no_command));
 			exit(1);
 		}
 	}
+}
+
+void	execute(char *argv, char **envp, t_pipex_var *s)
+{
+	int	i;
+
+	if_in_execute(argv, s);
 	i = 0;
 	s->path = direct_path(argv, s);
 	if (!s->path)
@@ -124,12 +106,9 @@ void	execute(char *argv, char **envp, t_pipex_var *s)
 		while (s->cmd[i])
 			free(s->cmd[i++]);
 		free(s->cmd);
-		no_path("Error\ncommand not found");
+		write(2, s->no_command, ft_strlen(s->no_command));
 		exit(1);
 	}
 	if (execve(s->path, s->cmd, envp) == -1)
-		ft_error_execve("Error\nexecve\n\n\n\n", s);
+		ft_error_execve("Error\nexecve\n", s);
 }
-
-
-

@@ -1,9 +1,9 @@
 NAME := pipex
 CC := gcc
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra -g3
 SRC_FILES := pipex.c pipex_utils.c ft_printf/ft_printf.c ft_printf/ft_printf_utils.c \
 libft/ft_substr.c libft/ft_strjoin.c libft/ft_strnstr.c libft/ft_split.c libft/ft_strlen.c \
-libft/ft_strdup.c child_processes.c main.c
+libft/ft_strdup.c child_processes.c pipex_utils_2.c main.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 all : $(NAME)
