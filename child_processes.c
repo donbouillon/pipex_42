@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 22:20:30 by slistle           #+#    #+#             */
-/*   Updated: 2023/08/10 19:58:48 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 18:55:45 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ int	child_process_two(char **argv, t_pipex_var *s)
 	close(s->fd[1]);
 	dup2(s->fd[0], STDIN);
 	dup2(s->outfile, STDOUT);
-	return (s->outfile);
+	close(s->fd[0]);
+	close(s->outfile);
+	return (0);
 }
 
 void	check_line(char *argv)

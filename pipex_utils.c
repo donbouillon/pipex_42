@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:18:08 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/10 15:17:17 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 18:38:42 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*path_finder(char *cmd, char **envp, t_pipex_var *s)
 	while (envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	if (envp[i] == NULL)
-		no_path("ty pidor");
+		return (NULL);
 	s->dir_paths = ft_split(envp[i] + 5, ':');
 	i = 0;
 	while (s->dir_paths[i])
@@ -71,6 +71,28 @@ char	**remove_quotes(char *argv)
 	return (ret);
 }
 
+char	*direct_path(char *cmd, t_pipex_var *s)
+{
+
+	s->path = ft_strdup(cmd);
+		if (access(s->path, X_OK) == 0)
+			return (s->path);
+		free(s->path);
+	return (NULL);
+}
+
+void	ft_error_execve(char *msg, t_pipex_var *s)
+{
+	int	i;
+
+	i = 0;
+	ft_printf("%s\n", msg);
+	while (s->cmd[i])
+			free(s->cmd[i++]);
+		free(s->cmd);
+	free(s->path);
+}
+
 void	execute(char *argv, char **envp, t_pipex_var *s)
 {
 	int	i;
@@ -79,9 +101,24 @@ void	execute(char *argv, char **envp, t_pipex_var *s)
 	if (argv[i] == '\"' && argv[ft_strlen(argv) - 1] == '\"')
 		s->cmd = remove_quotes(argv);
 	else
+	{
 		s->cmd = ft_split(argv, ' ');
+		if (!s->cmd)
+		{
+			write(2, "Error\nallocation failed\n", ft_strlen("Error\nallocation failed\n"));
+			exit(1);
+		}
+		else if (!*(s->cmd))
+		{
+			free(s->cmd);
+			write(2, "Error\ncommand not found\n", ft_strlen("Error\ncommand not found\n"));
+			exit(1);
+		}
+	}
 	i = 0;
-	s->path = path_finder(s->cmd[0], envp, s);
+	s->path = direct_path(argv, s);
+	if (!s->path)
+		s->path = path_finder(s->cmd[0], envp, s);
 	if (!s->path)
 	{
 		while (s->cmd[i])
@@ -91,5 +128,8 @@ void	execute(char *argv, char **envp, t_pipex_var *s)
 		exit(1);
 	}
 	if (execve(s->path, s->cmd, envp) == -1)
-		ft_exit_error("Error\nexecve");
+		ft_error_execve("Error\nexecve\n\n\n\n", s);
 }
+
+
+

@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 15:49:54 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/10 20:07:32 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 18:47:08 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	first_process(char **argv, char **envp, t_pipex_var *s)
 
 void	second_process(char **argv, char **envp, t_pipex_var *s)
 {
-	s->outfile = child_process_two(argv, s);
+	child_process_two(argv, s);
 	s->pid2 = fork();
 	if (s->pid2 == -1)
 		ft_exit_error("Error\nfork");
@@ -42,18 +42,19 @@ void	second_process(char **argv, char **envp, t_pipex_var *s)
 void	close_and_wait(t_pipex_var *s)
 {
 	close(s->outfile);
+	close(s->infile);
 	close(s->fd[0]);
-	close(pipe(s->fd));
+	close(s->fd[1]);
 	waitpid(s->pid1, NULL, 0);
 	waitpid(s->pid2, NULL, 0);
 }
 
-void	precautions(int argc, char **argv, t_pipex_var *s)
+void	precautions(int argc, t_pipex_var *s)
 {
 	if (argc != 5)
 		ft_exit_error("Usage: ./pipex infile \"cmd1\" \"cmd2\" outfile\n");
-	if (ft_strlen(argv[2]) < 2 || ft_strlen(argv[3]) < 2)
-		ft_exit_error("no commands\n");
+	// if (ft_strlen(argv[2]) < 2 || ft_strlen(argv[3]) < 2)
+	// 	ft_exit_error("no commands\n");
 	if (pipe(s->fd) == -1)
 		ft_exit_error("Error\npipe");
 }

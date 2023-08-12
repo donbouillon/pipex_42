@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 23:13:53 by slistle           #+#    #+#             */
-/*   Updated: 2022/12/07 22:25:30 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 16:46:35 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,41 +101,97 @@ char	**ft_split(char const *s, char c)
 	return (res_str);
 }
 
-// void	ft_print_result(char const *s)
+// void	ft_free_strs(char **strs)
 // {
-// 	int		len;
+// 	int	i;
 
-// 	len = 0;
-// 	while (s[len])
-// 		len++;
-// 	write(1, s, len);
+// 	i = 0;
+// 	while (strs && strs[i])
+// 	{
+// 		free(strs[i]);
+// 		i++;
+// 	}
+// 	free(strs);
 // }
 
-// int main()
+// static int	ft_count_word(char const *s, char c)
 // {
-// 	char	**tabstr;
-// 	int		i;
+// 	int	i;
+// 	int	j;
+// 	int	k;
+
 // 	i = 0;
-// 	tabstr = NULL;
-// 	char	*s = "      split       this for   me  !       ";
-// 	char	**expected = (char*[6]){"split", "this", "for", "me", "!", NULL};
-// 	char	**result = ft_split(s, ' ');
-// 	while (*result) {
-// 			printf("%d", (strcmp(*result, *expected)));
-// 			result++;
-// 			expected++;
-// 			}
+// 	k = 0;
+// 	while (s[i])
 // 	{
-// 		// if (!(tabstr = ft_split("", ' ')))
-// 		// 	ft_print_result("NULL");
-// 		// else
-// 		// 	if (!tabstr[0])
-// 		// 		ft_print_result("ok\n");
-// 			// while (tabstr[i] != NULL)
-// 			// {
-// 			// 	ft_print_result(tabstr[i]);
-// 			// 	write(1, "\n", 1);
-// 			// 	i++;
-// 			// }
+// 		while (s[i] && s[i] == c)
+// 			i++;
+// 		j = 0;
+// 		while (s[i] && s[i] != c)
+// 		{
+// 			i++;
+// 			j++;
+// 		}
+// 		if (j > 0)
+// 			k++;
+// 		while (s[i] && s[i] == c)
+// 			i++;
 // 	}
+// 	return (k);
+// }
+
+// static int	ft_word_len(char const *s, char c, int i)
+// {
+// 	int	j;
+
+// 	j = 0;
+// 	while (s[i] && s[i] == c)
+// 		i++;
+// 	while (s[i] && s[i] != c)
+// 	{
+// 		i++;
+// 		j++;
+// 	}
+// 	return (j);
+// }
+
+// static char	**ft_split2(char const *s, char **strs, char c, int i)
+// {
+// 	int	j;
+// 	int	k;
+
+// 	j = 0;
+// 	while (j < ft_countw(s, c))
+// 	{
+// 		strs[j] = malloc(sizeof(char) * (ft_word_len(s, c, i) + 1));
+// 		if (!strs[j])
+// 			return (ft_free_strs(strs), NULL);
+// 		k = 0;
+// 		while (s[i] && s[i] == c)
+// 			i++;
+// 		while (s[i] && s[i] != c)
+// 		{
+// 			strs[j][k] = s[i];
+// 			i++;
+// 			k++;
+// 		}
+// 		strs[j][k] = '\0';
+// 		j++;
+// 	}
+// 	strs[j] = NULL;
+// 	return (strs);
+// }
+
+// char	**ft_split(char const *s, char c)
+// {
+// 	char	**strs;
+// 	int		i;
+
+// 	if (!s)
+// 		return (write(2, "split : we cant split NULL\n", 28), NULL);
+// 	strs = malloc(sizeof(char *) * (ft_count_word(s, c) + 1));
+// 	if (!strs)
+// 		return (NULL);
+// 	i = 0;
+// 	return (ft_split2(s, strs, c, i));
 // }

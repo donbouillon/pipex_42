@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:18:49 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/10 15:18:14 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 18:33:38 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,13 @@ char	**remove_quotes(char *argv);
 char	*path_finder(char *cmd, char **envp, t_pipex_var *s);
 void	ft_exit_error(char *msg);
 void	check_line(char *argv);
-void	precautions(int argc, char **argv, t_pipex_var *s);
+void	precautions(int argc, t_pipex_var *s);
 void	close_and_wait(t_pipex_var *s);
 void	second_process(char **argv, char **envp, t_pipex_var *s);
 void	first_process(char **argv, char **envp, t_pipex_var *s);
 void	initialization(t_pipex_var *s);
 void	no_path(char *msg);
+void	ft_error_execve(char *msg, t_pipex_var *s);
+char	*direct_path(char *cmd, t_pipex_var *s);
 
 #endif
