@@ -6,11 +6,12 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 22:45:03 by slistle           #+#    #+#             */
-/*   Updated: 2023/08/12 18:44:43 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 23:11:51 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/pipex.h"
+#include <stdio.h>
 
 int	main(int argc, char **argv, char **envp)
 {
