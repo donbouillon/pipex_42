@@ -6,20 +6,17 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:18:08 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/12 23:22:03 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 23:33:28 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/pipex.h"
-#include "string.h"
-#include <stdio.h>
 
 char	*path_finder(char *cmd, char **envp, t_pipex_var *s)
 {
 	int		i;
 
 	i = 0;
-
 	while (envp[i] && ft_strnstr(envp[i], "PATH", 4) == 0)
 		i++;
 	if (envp[i] == NULL)
@@ -32,9 +29,7 @@ char	*path_finder(char *cmd, char **envp, t_pipex_var *s)
 		s->path = ft_strjoin(s->path_except_cmd, cmd);
 		free(s->path_except_cmd);
 		if (access(s->path, X_OK) == 0)
-		{
 			return (s->path);
-		}
 		free(s->path);
 		i++;
 	}
@@ -96,14 +91,12 @@ void	if_in_execute(char *argv, t_pipex_var *s)
 			exit(1);
 		}
 	}
-	
 }
 
 void	execute(char *argv, char **envp, t_pipex_var *s)
 {
 	int	i;
 
-	
 	if_in_execute(argv, s);
 	i = 0;
 	s->path = direct_path(argv, s);
