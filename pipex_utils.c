@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 11:18:08 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/12 19:57:45 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 21:49:13 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,12 @@ char	**remove_quotes(char *argv)
 char	*direct_path(char *cmd, t_pipex_var *s)
 {
 	s->path = ft_strdup(cmd);
-	if (access(s->path, X_OK) == 0)
+	if (!s->path)
+		return (NULL);
+	if (access(s->path, X_OK))
+	{
 		return (s->path);
+	}
 	free(s->path);
 	return (NULL);
 }
@@ -110,5 +114,5 @@ void	execute(char *argv, char **envp, t_pipex_var *s)
 		exit(1);
 	}
 	if (execve(s->path, s->cmd, envp) == -1)
-		ft_error_execve("Error\nexecve\n", s);
+		ft_error_execve(s);
 }

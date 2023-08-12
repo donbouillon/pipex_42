@@ -6,18 +6,18 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:37:19 by slistle           #+#    #+#             */
-/*   Updated: 2023/08/12 20:01:31 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 21:41:41 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/pipex.h"
 
-void	ft_error_execve(char *msg, t_pipex_var *s)
+void	ft_error_execve(t_pipex_var *s)
 {
 	int	i;
 
 	i = 0;
-	ft_printf("%s\n", msg);
+	write(2, s->execve_error, ft_strlen(s->execve_error));
 	while (s->cmd[i])
 		free(s->cmd[i++]);
 	free(s->cmd);

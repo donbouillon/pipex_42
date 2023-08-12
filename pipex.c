@@ -6,7 +6,7 @@
 /*   By: slistle <slistle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 15:49:54 by gleb              #+#    #+#             */
-/*   Updated: 2023/08/12 19:40:01 by slistle          ###   ########.fr       */
+/*   Updated: 2023/08/12 21:42:09 by slistle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	initialization(t_pipex_var *s)
 	s->outfile = 0;
 	s->split_fail = "Error\nallocation failed\n";
 	s->no_command = "Error\ncommand not found\n";
+	s->execve_error = "Error\nexecve\n";
 }
 
 void	first_process(char **argv, char **envp, t_pipex_var *s)
